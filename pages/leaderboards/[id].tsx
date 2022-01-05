@@ -38,6 +38,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 export default function Page(props: InferGetServerSidePropsType<typeof getServerSideProps>) {
     const router = useRouter();
     const { id } = router.query;
+    const [namespace, _] = (id as string).split(':');
     const leaderboard: Leaderboard = props.leaderboard;
 
     return <SWRConfig value={{ fallback: props.fallback }}>
@@ -45,7 +46,7 @@ export default function Page(props: InferGetServerSidePropsType<typeof getServer
             <TTitle k={idToTranslation(id as string)} />
 
             <h1>
-                <T k={idToTranslation(id as string)} />
+                <T k={`statistic.bundle.${namespace}`} />: <T k={idToTranslation(id as string)} />
             </h1>
 
             <table className={styles.leaderboard}>
