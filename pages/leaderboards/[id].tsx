@@ -54,7 +54,9 @@ export default function Page(props: InferGetServerSidePropsType<typeof getServer
                         <th className={styles.leaderboardRankingHeader} />
                         <th className={styles.leaderboardAvatarHeader} />
                         <th className={styles.leaderboardPlayerHeader}>Player</th>
-                        <th>Score</th>
+                        <th className={styles.leaderboardScoreHeader}>
+                            <T k={idToTranslation(id as string)} />
+                        </th>
                     </tr>
                 </thead>
                 <tbody className={styles.leaderboardBody}>

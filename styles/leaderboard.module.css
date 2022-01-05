@@ -25,6 +25,12 @@
     text-align: left;
 }
 
+.leaderboardScoreHeader {
+    width: 1px;
+    white-space: nowrap;
+    padding-right: 8px;
+}
+
 .leaderboardRow {
     --border-radius: 21px;
 }
