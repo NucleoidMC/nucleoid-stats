@@ -1,0 +1,16 @@
+.nav {
+    background-color: rgba(1.0, 1.0, 1.0, 0.2);
+    height: 96px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.nav > a {
+    margin-right: 16px;
+    text-decoration: none;
+}
+
+a.selected {
+    text-decoration: underline;
+}

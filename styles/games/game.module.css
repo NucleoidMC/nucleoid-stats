@@ -1,0 +1,34 @@
+.globals {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.stat {
+    margin: 0 8px;
+}
+
+.players {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.players > div {
+    width: 45%;
+}
+
+.players > div:only-child {
+    width: 100%;
+}
+
+@media screen and (max-width: 720px) {
+    .players {
+        flex-direction: column;
+    }
+
+    .players > div {
+        width: 100%;
+    }
+}

@@ -1,0 +1,63 @@
+.player {
+    display: flex;
+    flex-direction: column;
+    margin: 8px;
+    width: 100%;
+}
+
+.playerHeader {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.playerUsername {
+    margin: 8px;
+}
+
+.playerStats {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: 8px;
+}
+
+.tabRow {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-evenly;
+}
+
+.tab {
+    cursor: pointer;
+    margin-right: 16px;
+}
+
+.tabSelected {
+    text-decoration: underline;
+    cursor: default;
+    margin-right: 16px;
+}
+
+.statsGroup {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.valueContainer {
+    margin-right: 16px;
+    display: flex;
+    flex-direction: column;
+}
+
+.valueTitle {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.value {
+    font-size: 36px;
+}
