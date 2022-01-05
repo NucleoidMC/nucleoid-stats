@@ -1,19 +1,21 @@
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import Link from "next/link";
 import React from "react";
+import { SWRConfig } from "swr";
 import PlayerAvatar from "../../components/player/PlayerAvatar";
 import Username from "../../components/player/Username";
 import StatisticDisplay from "../../components/StatisticDisplay";
 import { T, TTitle } from "../../components/translations";
 import { apiFetch } from "../../src/fetch";
-import { GameStatistics, getGlobals, getNamespace, getPlayers, getStatistics, keyToTranslation, Statistic } from "../../src/model/statistics";
+import { prefetch_players } from "../../src/model/player";
+import { GameStatistics, getGlobals, getNamespace, getPlayers, getStatistics, keyToTranslation, NULL_UUID, Statistic } from "../../src/model/statistics";
 import styles from '../../styles/games/game.module.css';
 import playerStyles from '../../styles/player.module.css';
 
-export default function Page({ game }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+export default function Page({ game, fallback }: InferGetServerSidePropsType<typeof getServerSideProps>) {
     const globals = getGlobals(game);
 
-    return <>
+    return <SWRConfig value={{ fallback }}>
         <TTitle k={'statistic.bundle.' + getNamespace(game)} />
 
         <h1>
@@ -27,7 +29,7 @@ export default function Page({ game }: InferGetServerSidePropsType<typeof getSer
         <div className={styles.players}>
             {getPlayers(game).map(player => <Player key={player} game={game} id={player} />)}
         </div>
-    </>
+    </SWRConfig>
 }
 
 const Statistic: React.FC<{ stat: Statistic, className?: string }> = ({ stat, className }) => {
@@ -70,6 +72,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     return {
         props: {
             game: res,
-        }
-    }
+            fallback: {
+                ...(await prefetch_players(Object.keys(res).filter(s => s !== NULL_UUID))),
+            },
+        },
+    };
 }
