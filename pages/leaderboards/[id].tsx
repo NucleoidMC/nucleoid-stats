@@ -82,7 +82,7 @@ const LeaderboardEntry: React.FC<LeaderboardEntryProps & { leaderboard: string }
             </Link>
         </td>
         <td>
-            <StatisticDisplay stat={[props.leaderboard, props.value]} />
+            <StatisticDisplay no_adjust={true} stat={[props.leaderboard, props.value]} />
         </td>
     </tr>
 }
