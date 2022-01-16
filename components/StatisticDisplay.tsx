@@ -9,7 +9,7 @@ const StatisticDisplay: React.FC<Props> = (props) => {
     // some assumptions to make for now
     if (props.stat[0].endsWith('_time')) {
         return <>
-            {!props.no_adjust ? Math.round(props.stat[1] / 20) : Math.round(props.stat[1])}s
+            {!props.no_adjust ? Math.round(props.stat[1] / 20) : props.stat[1].toFixed(2)}s
         </>
     }
 
