@@ -75,14 +75,14 @@ const LeaderboardEntry: React.FC<LeaderboardEntryProps & { leaderboard: string }
         console.log(error);
     }
 
-    return <tr className={styles.leaderboardRow}>
+    return <tr className={(ghost ? styles.ghost + ' ' : '') + styles.leaderboardRow}>
         <td>#{props.ranking}</td>
         <td>
             {avatar}
         </td>
         <td className={styles.leaderboardPlayer}>
             <Link href={!ghost ? `/players/${props.player}` : '/players/ghost'}>
-                <a>
+                <a className={ghost ? styles.ghost : ''}>
                     {username}
                 </a>
             </Link>
