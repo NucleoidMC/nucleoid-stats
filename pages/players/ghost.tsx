@@ -17,7 +17,7 @@ export default function Page() {
             </div>
 
             <p>
-                Ooh spooky! This user doesn't appear to exist anymore :(
+                Ooh spooky! This user doesn&apos;t appear to exist anymore :(
             </p>
 
             <footer style={{ fontSize: '8px' }}>
