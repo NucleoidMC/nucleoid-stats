@@ -9,7 +9,7 @@ import StatisticDisplay from "../../components/StatisticDisplay";
 import { T, TTitle } from "../../components/translations";
 import { apiFetch } from "../../src/fetch"
 import { idToTranslation, Leaderboard, LeaderboardEntry as LeaderboardEntryProps } from "../../src/model/leaderboards";
-import { prefetch_players } from "../../src/model/player";
+import { prefetch_players, useUsernameAndAvatar } from "../../src/model/player";
 import styles from '../../styles/leaderboard.module.css';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -69,15 +69,21 @@ export default function Page(props: InferGetServerSidePropsType<typeof getServer
 }
 
 const LeaderboardEntry: React.FC<LeaderboardEntryProps & { leaderboard: string }> = (props) => {
+    const { username, ghost, avatar, error } = useUsernameAndAvatar(props.player, 32, styles.leaderboardAvatar);
+
+    if (error) {
+        console.log(error);
+    }
+
     return <tr className={styles.leaderboardRow}>
         <td>#{props.ranking}</td>
         <td>
-            <PlayerAvatar className={styles.leaderboardAvatar} size={32} uuid={props.player} />
+            {avatar}
         </td>
         <td className={styles.leaderboardPlayer}>
-            <Link href={`/players/${props.player}`}>
+            <Link href={!ghost ? `/players/${props.player}` : '/players/ghost'}>
                 <a>
-                    <Username uuid={props.player} />
+                    {username}
                 </a>
             </Link>
         </td>
