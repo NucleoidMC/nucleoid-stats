@@ -19,9 +19,9 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Build container image
-        run: docker buildx build -t ghcr.io/NucleoidMC/nucleoid-stats:latest -t ghcr.io/NucleoidMC/nucleoid-stats:${GITHUB_SHA} .
+        run: docker buildx build -t ghcr.io/nucleoidmc/nucleoid-stats:latest -t ghcr.io/nucleoidmc/nucleoid-stats:${GITHUB_SHA} .
       - name: Push image (latest)
-        run: docker push ghcr.io/NucleoidMC/nucleoid-stats:latest
+        run: docker push ghcr.io/nucleoidmc/nucleoid-stats:latest
       - name: Push image
-        run: docker push ghcr.io/NucleoidMC/nucleoid-stats:${GITHUB_SHA}
+        run: docker push ghcr.io/nucleoidmc/nucleoid-stats:${GITHUB_SHA}
 
