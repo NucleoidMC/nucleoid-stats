@@ -1,14 +1,17 @@
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import Head from "next/head";
 import Link from "next/link";
-import React from "react";
+import React, { useContext } from "react";
 import { T } from "../../components/translations";
 import { apiFetch } from "../../src/fetch";
 import { idToTranslation } from "../../src/model/leaderboards";
 import styles from '../../styles/leaderboard.module.css';
+import { TranslationContext, performTranslation } from "../../src/translations";
 
 export default function Page(props: InferGetServerSidePropsType<typeof getServerSideProps>) {
     const leaderboards: string[] = props.leaderboards;
+
+    const translations = useContext(TranslationContext); 
 
     const groups = (() => {
         const groupsByName: Map<string, string[]> = new Map();
@@ -18,7 +21,7 @@ export default function Page(props: InferGetServerSidePropsType<typeof getServer
             if (!groupsByName.has(namespace)) {
                 const group: string[] = [];
                 groupsByName.set(namespace, group);
-                groups.push([namespace, group]);
+                groups.push([performTranslation(translations, `statistic.bundle.${namespace}`), group]);
                 groups.sort((a, b) => a[0].localeCompare(b[0]));
             }
             const group = groupsByName.get(namespace)!;
@@ -36,9 +39,7 @@ export default function Page(props: InferGetServerSidePropsType<typeof getServer
         <h1>Leaderboards</h1>
 
         {groups.map(([namespace, boards]) => <React.Fragment key={namespace}>
-            <h2>
-                <T k={`statistic.bundle.${namespace}`} />
-            </h2>
+            <h2>{namespace}</h2>
 
             <ul>
                 {boards.map(leaderboard => <li key={leaderboard}>
