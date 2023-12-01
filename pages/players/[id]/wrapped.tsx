@@ -12,7 +12,7 @@ export default function Page(props: { username: string, wrapped: PlayerWrappedDa
 
     return <>
         <Head>
-            <title>{props.username}'s Nucleoid Wrapped</title>
+            <title>{props.username}&apos;s Nucleoid Wrapped</title>
         </Head>
 
         <div className={styles.wrappedMain}>
@@ -83,17 +83,17 @@ const Slide1: React.FC<{setSlide: (slide: number) => void, static?: boolean, wra
 
         <DelayFade static={props.static} delay={1000}>
             <p>
-                This year, you've played <b>{props.wrapped.played_count}</b> games.
+                This year, you&apos;ve played <b>{props.wrapped.played_count}</b> games.
             </p>
         </DelayFade>
 
         {lots && <DelayFade static={props.static} delay={1500}><p>
-            That's a whole lot!
+            That&apos;s a whole lot!
         </p></DelayFade>}
 
         {!props.static && <DelayFade static={props.static} delay={lots ? 3000 : 2000}>
             <button className={styles.button} onClick={() => props.setSlide(2)}>
-                What's next?
+                What&apos;s next?
             </button>
         </DelayFade>}
     </>
@@ -115,7 +115,7 @@ const Slide2: React.FC<{setSlide: (slide: number) => void, static?: boolean, wra
 
         <DelayFade static={props.static} delay={2300}>
             <p>
-                Now that's some dedication.
+                Now that&apos;s some dedication.
             </p>
         </DelayFade>
 
@@ -135,14 +135,14 @@ const Slide3: React.FC<{setSlide: (slide: number) => void, static?: boolean, wra
 
         <DelayFade static={props.static} delay={2700}>
             <p>
-                Here's your top {Math.min(props.wrapped.top_games.length, 5)}!
+                Here&apos;s your top {Math.min(props.wrapped.top_games.length, 5)}!
             </p>
         </DelayFade>
 
         <ol>
             {props.wrapped.top_games.map((game, i) => {
                 if (i >= 5) return;
-                return <li>
+                return <li key={i}>
                     <DelayFade static={props.static} delay={3000 + (i * 300)}>
                         <b><T k={`statistic.bundle.${game.namespace}`} /></b> - <b>{game.total}</b> games
                     </DelayFade>
@@ -192,14 +192,14 @@ const Slide5: React.FC<{setSlide: (slide: number) => void, static?: boolean, wra
 
         <DelayFade static={props.static} delay={2000}>
             <p>
-                Here's your top {Math.min(props.wrapped.days_played_games.length, 5)} games by days played!
+                Here&apos;s your top {Math.min(props.wrapped.days_played_games.length, 5)} games by days played!
             </p>
         </DelayFade>
 
         <ol>
             {props.wrapped.days_played_games.map((game, i) => {
                 if (i >= 5) return;
-                return <li>
+                return <li key={i}>
                     <DelayFade static={props.static} delay={2400 + (i * 300)}>
                         <b><T k={`statistic.bundle.${game.namespace}`} /></b> - <b>{game.total}</b> days
                     </DelayFade>
@@ -223,7 +223,7 @@ const Slide6: React.FC<{setSlide: (slide: number) => void, static?: boolean, wra
 
         <DelayFade static={props.static} delay={1800}>
             <p>
-                You've played with lots of people this year.
+                You&apos;ve played with lots of people this year.
             </p>
         </DelayFade>
 
@@ -249,14 +249,14 @@ const Slide7: React.FC<{setSlide: (slide: number) => void, static?: boolean, wra
 
         <DelayFade static={props.static} delay={2000}>
             <p>
-                Here's the top {Math.min(props.wrapped.most_players_games.length, 5)} games you've shared with the most people.
+                Here&apos;s the top {Math.min(props.wrapped.most_players_games.length, 5)} games you&apos;ve shared with the most people.
             </p>
         </DelayFade>
 
         <ol>
             {props.wrapped.days_played_games.map((game, i) => {
                 if (i >= 5) return;
-                return <li>
+                return <li key={i}>
                     <DelayFade static={props.static} delay={2400 + (i * 300)}>
                         <b><T k={`statistic.bundle.${game.namespace}`} /></b> - <b>{game.total}</b> other people
                     </DelayFade>
