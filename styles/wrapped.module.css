@@ -1,0 +1,68 @@
+.wrappedMain {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 720px;
+    margin-bottom: 24px;
+}
+
+.textIn {
+    display: inline-block;
+}
+
+.fadeIn {
+    display: inline-block;
+}
+
+@media not prefers-reduced-motion {
+    .textIn {
+        animation: slide-up-in 200ms ease-in both;
+        transform: translateY(100%);
+    }
+
+    .fadeIn {
+        animation: fade-in 200ms ease-in both;
+    }
+}
+
+@keyframes slide-up-in {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.button {
+    margin-top: 16px;
+    padding: 16px 24px;
+    font-size: 16px;
+    background-color: #f9027a;
+    border-radius: 999999px;
+    color: black;
+    font-weight: bold;
+    text-transform: uppercase;
+    border: none;
+    transition: transform ease 200ms;
+}
+
+.button:hover {
+    transform: scale(1.2);
+    box-shadow: #bb3e7b 4px 4px 2px 2px 4px;
+}
+
+.button:active {
+    transform: scale(1.1);
+}
