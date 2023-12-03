@@ -6,13 +6,14 @@ import Head from "next/head";
 import React, { useEffect, useMemo, useState } from "react";
 import styles from '../../../styles/wrapped.module.css';
 import { T } from "../../../components/translations";
+import { useRouter } from "next/router";
 
-export default function Page(props: { username: string, wrapped: PlayerWrappedData }) {
+export default function Page(props: { player: PlayerProfile, wrapped: PlayerWrappedData }) {
     const [slide, setSlide] = useState(0);
 
     return <>
         <Head>
-            <title>{props.username}&apos;s Nucleoid Wrapped</title>
+            <title>{props.player.name}&apos;s Nucleoid Wrapped</title>
         </Head>
 
         <div className={styles.wrappedMain}>
@@ -22,9 +23,8 @@ export default function Page(props: { username: string, wrapped: PlayerWrappedDa
             {slide === 3 && <Slide3 setSlide={setSlide} wrapped={props.wrapped} />}
             {slide === 4 && <Slide4 setSlide={setSlide} wrapped={props.wrapped} />}
             {slide === 5 && <Slide5 setSlide={setSlide} wrapped={props.wrapped} />}
-            {slide === 6 && <Slide6 setSlide={setSlide} wrapped={props.wrapped} />}
-            {slide === 7 && <Slide7 setSlide={setSlide} wrapped={props.wrapped} />}
-            {slide === 8 && <Slide8 wrapped={props.wrapped} />}
+            {slide === 6 && <Slide6 player={props.player} setSlide={setSlide} wrapped={props.wrapped} />}
+            {slide === 7 && <Slide7 player={props.player} wrapped={props.wrapped} />}
         </div>
     </>
 }
@@ -45,7 +45,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     return {
         props: {
             wrapped,
-            username: profile!.name,
+            player: profile!,
         }
     }
 }
@@ -215,7 +215,9 @@ const Slide5: React.FC<{setSlide: (slide: number) => void, static?: boolean, wra
     </>
 }
 
-const Slide6: React.FC<{setSlide: (slide: number) => void, static?: boolean, wrapped: PlayerWrappedData}> = (props) => {
+const Slide6: React.FC<{player: PlayerProfile, setSlide: (slide: number) => void, static?: boolean, wrapped: PlayerWrappedData}> = (props) => {
+    const router = useRouter();
+
     return <>
         <h1>
             <SlideUpInWords static={props.static} text="This isn't all about you" />
@@ -234,14 +236,21 @@ const Slide6: React.FC<{setSlide: (slide: number) => void, static?: boolean, wra
         </DelayFade>
 
         {!props.static && <DelayFade static={props.static} delay={3500}>
-            <button className={styles.button} onClick={() => props.setSlide(props.wrapped.most_players_games.length > 1 ? 7 : 8)}>
+            <button className={styles.button} onClick={() => {
+                if (props.wrapped.most_players_games.length > 1) {
+                    props.setSlide(7);
+                } else {
+                    router.push(`/players/${props.player.id}/wrapped/share`);
+                }
+            }}>
                 Next
             </button>
         </DelayFade>}
     </>
 }
 
-const Slide7: React.FC<{setSlide: (slide: number) => void, static?: boolean, wrapped: PlayerWrappedData}> = (props) => {
+const Slide7: React.FC<{player: PlayerProfile, static?: boolean, wrapped: PlayerWrappedData}> = (props) => {
+    const router = useRouter();
     return <>
         <h1>
             <SlideUpInWords static={props.static} text="Everyone else plays different things" />
@@ -265,14 +274,14 @@ const Slide7: React.FC<{setSlide: (slide: number) => void, static?: boolean, wra
         </ol>
 
         {!props.static && <DelayFade static={props.static} delay={5000}>
-            <button className={styles.button} onClick={() => props.setSlide(8)}>
+            <button className={styles.button} onClick={() => { router.push(`/players/${props.player.id}/wrapped/share`) }}>
                 Next
             </button>
         </DelayFade>}
     </>
 }
 
-const Slide8: React.FC<{wrapped: PlayerWrappedData}> = (props) => {
+export const Slide8: React.FC<{player: PlayerProfile, wrapped: PlayerWrappedData}> = (props) => {
     const [shareSupported, setShareSupported] = useState(false);
 
     useEffect(() => {
@@ -290,12 +299,12 @@ const Slide8: React.FC<{wrapped: PlayerWrappedData}> = (props) => {
             {props.wrapped.top_games.length > 1 && <Slide3 setSlide={() => {}} wrapped={props.wrapped} static />}
             <Slide4 setSlide={() => {}} wrapped={props.wrapped} static />
             {props.wrapped.days_played_games.length > 1 && <Slide5 setSlide={() => {}} wrapped={props.wrapped} static />}
-            <Slide6 setSlide={() => {}} wrapped={props.wrapped} static />
-            {props.wrapped.most_players_games.length > 1 && <Slide7 setSlide={() => {}} wrapped={props.wrapped} static />}
+            <Slide6 player={props.player} setSlide={() => {}} wrapped={props.wrapped} static />
+            {props.wrapped.most_players_games.length > 1 && <Slide7 player={props.player} wrapped={props.wrapped} static />}
         </DelayFade>
 
         {shareSupported && <DelayFade delay={2500}>
-            <button className={styles.button} onClick={() => navigator.share({url: 'https://stats.nucleoid.xyz/wrapped'})}>
+            <button className={styles.button} onClick={() => navigator.share({url: `https://stats.nucleoid.xyz/`})}>
                 Share
             </button>
         </DelayFade>}
