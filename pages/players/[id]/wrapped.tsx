@@ -3,7 +3,7 @@ import { apiFetch } from "../../../src/fetch";
 import { PlayerProfile } from "../../../src/model/player";
 import { PlayerWrappedData } from "../../../src/model/wrapped";
 import Head from "next/head";
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import styles from '../../../styles/wrapped.module.css';
 import { T } from "../../../components/translations";
 
@@ -24,7 +24,7 @@ export default function Page(props: { username: string, wrapped: PlayerWrappedDa
             {slide === 5 && <Slide5 setSlide={setSlide} wrapped={props.wrapped} />}
             {slide === 6 && <Slide6 setSlide={setSlide} wrapped={props.wrapped} />}
             {slide === 7 && <Slide7 setSlide={setSlide} wrapped={props.wrapped} />}
-            {slide === 8 && <Slide8 setSlide={setSlide} wrapped={props.wrapped} />}
+            {slide === 8 && <Slide8 wrapped={props.wrapped} />}
         </div>
     </>
 }
@@ -272,7 +272,13 @@ const Slide7: React.FC<{setSlide: (slide: number) => void, static?: boolean, wra
     </>
 }
 
-const Slide8: React.FC<{setSlide: (slide: number) => void, wrapped: PlayerWrappedData}> = (props) => {
+const Slide8: React.FC<{wrapped: PlayerWrappedData}> = (props) => {
+    const [shareSupported, setShareSupported] = useState(false);
+
+    useEffect(() => {
+        setShareSupported(!!navigator.share);
+    }, []);
+
     return <>
         <h1>
             <SlideUpInWords text="Here's everything on one page" />
@@ -288,11 +294,11 @@ const Slide8: React.FC<{setSlide: (slide: number) => void, wrapped: PlayerWrappe
             {props.wrapped.most_players_games.length > 1 && <Slide7 setSlide={() => {}} wrapped={props.wrapped} static />}
         </DelayFade>
 
-        <DelayFade delay={2500}>
+        {shareSupported && <DelayFade delay={2500}>
             <button className={styles.button} onClick={() => navigator.share({url: 'https://stats.nucleoid.xyz/wrapped'})}>
                 Share
             </button>
-        </DelayFade>
+        </DelayFade>}
     </>
 }
 
