@@ -263,7 +263,7 @@ const Slide7: React.FC<{player: PlayerProfile, static?: boolean, wrapped: Player
         </DelayFade>
 
         <ol>
-            {props.wrapped.days_played_games.map((game, i) => {
+            {props.wrapped.most_players_games.map((game, i) => {
                 if (i >= 5) return;
                 return <li key={i}>
                     <DelayFade static={props.static} delay={2400 + (i * 300)}>
