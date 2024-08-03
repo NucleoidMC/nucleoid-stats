@@ -8,9 +8,7 @@ import { T } from './translations';
 export default function Navbar() {
     return <nav className={styles.nav}>
         <Link href='https://nucleoid.xyz/'>
-            <a>
-                <Image src={logo} alt="Nucleoid logo" layout='fixed' />
-            </a>
+            <Image src={logo} alt="Nucleoid logo" priority />
         </Link>
 
         <NavLink href='/games'>
@@ -31,16 +29,12 @@ const NavLink: React.FC<{ href: string }> = ({ href, children }) => {
     const router = useRouter();
 
     if (router.pathname.startsWith(href)) {
-        return <Link href={href}>
-            <a className={styles.selected}>
-                {children}
-            </a>
+        return <Link href={href} className={styles.selected}>
+            {children}
         </Link>
     } else {
         return <Link href={href}>
-            <a>
-                {children}
-            </a>
+            {children}
         </Link>
     }
 }

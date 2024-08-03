@@ -111,9 +111,7 @@ const RankingsGroup: React.FC<{ namespace: string, rankings: [string, PlayerRank
         {props.rankings.map(([key, ranking]) => <div className={styles.valueContainer} key={key}>
             <div className={styles.valueTitle}>
                 <Link href={`/leaderboards/${props.namespace}:${key}`}>
-                    <a>
-                        <T k={`leaderboard.${props.namespace}.${key}`} />
-                    </a>
+                    <T k={`leaderboard.${props.namespace}.${key}`} />
                 </Link>
             </div>
             <div className={styles.value}>
