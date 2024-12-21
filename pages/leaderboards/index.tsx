@@ -44,9 +44,7 @@ export default function Page(props: InferGetServerSidePropsType<typeof getServer
             <ul>
                 {boards.map(leaderboard => <li key={leaderboard}>
                     <Link href={`/leaderboards/${leaderboard}`} key={leaderboard}>
-                        <a>
-                            <T k={idToTranslation(leaderboard)} />
-                        </a>
+                        <T k={idToTranslation(leaderboard)} />
                     </Link>
                 </li>)}
             </ul>

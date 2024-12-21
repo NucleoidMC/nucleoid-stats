@@ -24,9 +24,7 @@ export default function Page({ recentGames }: { recentGames: RecentGames }) {
 const Game: React.FC<{ game: RecentGame }> = ({ game }) => {
     return <li>
         <Link href={"/games/" + game.id}>
-            <a>
-                <T k={"statistic.bundle." + game.namespace} />
-            </a>
+            <T k={"statistic.bundle." + game.namespace} />
         </Link>
     </li>
 }

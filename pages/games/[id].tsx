@@ -41,14 +41,12 @@ const Statistic: React.FC<{ stat: Statistic, className?: string }> = ({ stat, cl
 const Player: React.FC<{ game: GameStatistics, id: string }> = ({ game, id }) => {
     return <div className={playerStyles.player}>
         <Link href={`/players/${id}`}>
-            <a>
-                <div className={playerStyles.playerHeader}>
-                    <PlayerAvatar className={playerStyles.playerAvatar} uuid={id} size={64} />
-                    <h2 className={playerStyles.playerUsername}>
-                        <Username uuid={id} />
-                    </h2>
-                </div>
-            </a>
+            <div className={playerStyles.playerHeader}>
+                <PlayerAvatar className={playerStyles.playerAvatar} uuid={id} size={64} />
+                <h2 className={playerStyles.playerUsername}>
+                    <Username uuid={id} />
+                </h2>
+            </div>
         </Link>
         <div className={playerStyles.playerStats}>
             {getStatistics(game, id).map(s => <Statistic key={s[0]} stat={s} />)}
