@@ -10,8 +10,15 @@
     display: inline-block;
 }
 
-.fadeIn {
+span.fadeIn {
     display: inline-block;
+}
+
+div.fadeIn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
 }
 
 @media not prefers-reduced-motion {
@@ -56,6 +63,8 @@
     text-transform: uppercase;
     border: none;
     transition: transform ease 200ms;
+    display: inline-block;
+    text-decoration: none;
 }
 
 .button:hover {

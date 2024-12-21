@@ -1,13 +1,17 @@
 .nav {
     background-color: rgba(1.0, 1.0, 1.0, 0.2);
-    height: 96px;
+    min-height: 96px;
     display: flex;
     flex-direction: row;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding-left: 16px;
+    padding-top: 8px;
+    padding-bottom: 8px;
 }
 
 .nav > a {
-    margin-right: 16px;
     text-decoration: none;
 }
 

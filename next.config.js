@@ -4,4 +4,13 @@ module.exports = {
   images: {
     domains: ['api.nucleoid.xyz'],
   },
+  async redirects() {
+    return [
+      {
+        source: '/wrapped',
+        destination: '/wrapped/2024',
+        permanent: false,
+      },
+    ];
+  },
 }
