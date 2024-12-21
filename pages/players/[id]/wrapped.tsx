@@ -291,11 +291,15 @@ const Slide7: React.FC<{player: PlayerProfile, static?: boolean, wrapped: Player
 }
 
 export const Slide8: React.FC<{player: PlayerProfile, wrapped: PlayerWrappedData, year: number, thank: boolean}> = (props) => {
-    const [shareSupported, setShareSupported] = useState(false);
+    function share() {
+        const url = `https://stats.nucleoid.xyz/player/${props.player.id}/wrapped?year=${props.year}`;
 
-    useEffect(() => {
-        setShareSupported(!!navigator.share);
-    }, []);
+        if (navigator.share) {
+            navigator.share({url})
+        } else {
+            navigator.clipboard.writeText(url).then(() => alert('Copied to clipboard!'));
+        }
+    }
 
     return <>
         <h1>
@@ -310,7 +314,7 @@ export const Slide8: React.FC<{player: PlayerProfile, wrapped: PlayerWrappedData
             </p>
 
             <p>
-                Here's everything on one page, {shareSupported ? 'scroll to the bottom' : ''} to share with your friends!
+                Here's everything on one page, scroll to the bottom to share with your friends!
             </p>
         </DelayFadeBlock>}
 
@@ -324,11 +328,11 @@ export const Slide8: React.FC<{player: PlayerProfile, wrapped: PlayerWrappedData
             {props.wrapped.most_players_games.length > 1 && <Slide7 year={props.year} player={props.player} wrapped={props.wrapped} static />}
         </DelayFade>
 
-        {shareSupported && <DelayFade delay={2000}>
-            <button className={styles.button} onClick={() => navigator.share({url: `https://stats.nucleoid.xyz/player/${props.player.id}/wrapped?year=${props.year}`})}>
+        <DelayFade delay={props.thank ? 1500 : 1000}>
+            <button className={styles.button} onClick={() => share()}>
                 Share
             </button>
-        </DelayFade>}
+        </DelayFade>
     </>
 }
 
