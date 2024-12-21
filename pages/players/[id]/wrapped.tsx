@@ -292,7 +292,7 @@ const Slide7: React.FC<{player: PlayerProfile, static?: boolean, wrapped: Player
 
 export const Slide8: React.FC<{player: PlayerProfile, wrapped: PlayerWrappedData, year: number, thank: boolean}> = (props) => {
     function share() {
-        const url = `https://stats.nucleoid.xyz/player/${props.player.id}/wrapped?year=${props.year}`;
+        const url = `https://stats.nucleoid.xyz/players/${props.player.id}/wrapped/share?year=${props.year}`;
 
         if (navigator.share) {
             navigator.share({url})
